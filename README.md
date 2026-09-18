@@ -1,256 +1,205 @@
-# Amy — Human-Like AI Typing Agent
+# Amy v0.3.0 — Windows Smart Typing Agent
 
-**Current Version: v0.2.0**
-
-Amy is a human-like typing agent that types copied text with adjustable typing speed, natural timing variations, punctuation pauses, and keyboard controls.
-
-> ⚠️ **v0.2.0 is currently Windows-only.**
-
----
+Amy is a Windows-based human-like typing and text automation agent designed to make text input more reliable, controlled, and intelligent.
 
 ## ✨ Features
 
-* 🎚️ Adjustable typing speed: **20–120 WPM**
-* 📊 Current WPM display
-* ▶️ Start typing copied clipboard text
-* ⏸️ Pause / Resume typing
-* ■ Stop typing
-* 🧑 Human-like typing variation
-* ✍️ Punctuation pauses
-* 📋 Clipboard-based typing
-* 🖥️ Windows GUI using Tkinter
-* 🧵 Background typing
-* 🛑 Emergency stop
-* ⌨️ Global keyboard shortcuts
+* Human-like character-by-character typing
+* Adjustable typing speed (WPM)
+* Start, pause, resume, and stop typing
+* Emergency stop
+* Clipboard monitoring
+* Multiple copied-text handling
+* Clipboard history
+* Clipboard check option
+* Duplicate clipboard detection
+* Already-typed text detection
+* Large-text handling
+* Line-break and multi-line text support
+* Prevention of multiple typing sessions
+* Error handling and logging
+* Active Windows application awareness
 
----
-
-## ⌨️ Keyboard Shortcuts
-
-| Shortcut           | Action            |
-| ------------------ | ----------------- |
-| `Ctrl + Shift + A` | Start typing      |
-| `Ctrl + Shift + P` | Pause / Resume    |
-| `Ctrl + Shift + X` | Stop typing       |
-| `Ctrl + Shift + ↑` | Increase WPM by 5 |
-| `Ctrl + Shift + ↓` | Decrease WPM by 5 |
-| `Ctrl + Shift + Q` | Quit Amy          |
-
----
-
-## 🖥️ Requirements
-
-* Windows 10 or Windows 11
-* Python 3.10+
-* Tkinter
-* Python packages listed in `windows/requirements.txt`
-
-An internet connection is **not required** while using Amy.
-
----
-
-## 📁 Project Structure
+## 🔄 How Amy Works
 
 ```text
-auto-typing/
-│
-├── windows/
-│   ├── main.py
-│   └── requirements.txt
-│
-├── README.md
-├── LICENSE
-└── .gitignore
+Clipboard
+    ↓
+Clipboard Manager
+    ↓
+Duplicate Detection
+    ↓
+Already-Typed Detection
+    ↓
+Text Queue
+    ↓
+Typing Engine
+    ↓
+Windows Input
+    ↓
+Target Application
 ```
 
----
+Amy checks copied text before typing to help prevent accidentally typing the same content multiple times.
 
-## ⚙️ Installation
+## 📋 Clipboard Check
 
-### 1. Install Python
+Amy can check the current clipboard without automatically typing anything.
 
-Install Python 3.10 or newer.
+Example:
 
-Make sure **Add Python to PATH** is enabled during installation.
+```text
+[AMY] Checking clipboard...
 
-### 2. Clone the Repository
+✓ Clipboard contains text
+✓ Characters: 248
+✓ Words: 42
+✓ Lines: 5
+✓ Status: Ready
+```
+
+If the clipboard is empty:
+
+```text
+[AMY] Clipboard is empty.
+```
+
+The clipboard check only analyzes the current clipboard content. It does **not** automatically start typing.
+
+## 📚 Multiple Clipboard Texts
+
+Amy can handle different copied texts while a typing operation is in progress.
+
+Example:
+
+```text
+Text 1 → Currently typing
+Text 2 → Waiting
+Text 3 → Waiting
+```
+
+This allows copied content to be managed without interrupting the current typing operation.
+
+## 🔁 Duplicate Detection
+
+If the same text is copied multiple times, Amy can detect the duplicate and prevent unnecessary repeated processing.
+
+Example:
+
+```text
+[AMY] Duplicate clipboard text detected.
+[AMY] Skipping duplicate text.
+```
+
+Amy can also detect text that has already been processed or typed and prevent unnecessary repetition.
+
+## ⌨️ Human-Like Typing
+
+Amy types text character by character instead of instantly pasting the complete text.
+
+Typing speed is controlled using **WPM (Words Per Minute)**, with small variations in timing to create more natural input.
+
+Punctuation and spaces can introduce slightly longer pauses.
+
+## 🪟 Windows Compatibility
+
+Amy is designed for use with Windows applications that accept normal keyboard input, including:
+
+* Visual Studio Code
+* Notepad
+* Google Chrome
+* Microsoft Edge
+* Firefox
+* Command Prompt
+* PowerShell
+* Microsoft Word
+* Other Windows applications
+
+Compatibility may vary depending on how an application handles keyboard input.
+
+## 🚀 Installation
+
+### Requirements
+
+* Windows
+* Python 3.x
+* Git
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Rubesh1420/auto-typing.git
+git clone https://github.com/Rubesh1420/Amy.git
 ```
 
-Then:
+### 2. Navigate to the project
 
 ```bash
-cd auto-typing
+cd Amy
 ```
 
-### 3. Install Dependencies
+### 3. Create a virtual environment
 
 ```bash
-python -m pip install -r windows/requirements.txt
+python -m venv venv
 ```
 
----
-
-## 🚀 Running Amy
-
-Go into the Windows directory:
+### 4. Activate the virtual environment
 
 ```bash
-cd windows
+venv\Scripts\activate
 ```
 
-Run Amy:
+### 5. Install dependencies
 
 ```bash
-python main.py
+pip install -r requirements.txt
 ```
 
-The Amy GUI will open.
+## ▶️ Running Amy
 
----
+Start Amy using:
 
-## 📝 How to Use
-
-1. Start Amy with `python main.py`.
-2. Copy the text you want Amy to type.
-3. Choose your desired WPM using the slider.
-4. Place your cursor where you want the text to appear.
-5. Press **Ctrl + Shift + A**.
-6. Amy will type the copied text.
-7. Press **Ctrl + Shift + P** to pause or resume.
-8. Press **Ctrl + Shift + X** to stop.
-
----
-
-## 🎚️ Typing Speed
-
-Amy supports typing speeds from:
-
-```text
-20 WPM ───────────────────── 120 WPM
+```bash
+python apps/windows/main.py
 ```
 
-You can change the speed using:
+Make sure the intended target application and input field are focused before starting a typing operation.
 
-* The GUI slider
-* `Ctrl + Shift + ↑`
-* `Ctrl + Shift + ↓`
+## 📝 Basic Workflow
 
-When human-like variation is enabled, Amy adds small random timing differences between keystrokes.
+1. Copy your text.
+2. Start Amy.
+3. Check the clipboard if needed.
+4. Focus the target application.
+5. Start the typing operation.
+6. Amy checks the clipboard content.
+7. Amy detects duplicates or already-typed text.
+8. The text is added to the typing queue.
+9. Amy types the content character by character.
+10. Amy reports the result.
 
----
+## 🛑 Safety
 
-## 🧑 Human-Like Typing
+Amy is an automation tool. Always make sure the correct application and input field are focused before starting a typing operation.
 
-Amy can add natural timing variations to make typing less mechanically consistent.
+If Amy begins typing into the wrong application, use the **emergency stop** to immediately stop the current operation.
 
-Additional pauses can be added around punctuation such as:
+## 📌 Project Status
 
-* `.`
-* `!`
-* `?`
-* `,`
-* `;`
-* `:`
+**Amy v0.3.0 — Windows**
 
-You can enable or disable these features from the GUI.
+Focus:
 
----
+* Reliable typing
+* Intelligent clipboard handling
+* Duplicate prevention
+* Already-typed text detection
+* Multiple clipboard text handling
+* Windows application awareness
 
-## 📋 Clipboard Support
+## 👨‍💻 Author
 
-Amy uses your Windows clipboard as its text source.
+Created by **Rubesh**
 
-The basic workflow is:
-
-```text
-Copy text → Run Amy → Place cursor → Start typing
-```
-
-No text file is required.
-
----
-
-## 🧪 Testing
-
-You can test Amy using:
-
-```text
-Hello! My name is Amy, and I am a human-like typing agent. This is a test of the typing speed, punctuation pauses, and pause/resume features. I can type text at different speeds while adding natural variations. Let's see how well everything works!
-```
-
-Copy the text, open Amy, place your cursor in a text editor, and press:
-
-```text
-Ctrl + Shift + A
-```
-
----
-
-## 🛑 Emergency Stop
-
-If Amy is typing and you need to stop immediately:
-
-```text
-Ctrl + Shift + X
-```
-
-You can also click the **Stop** button in the GUI.
-
----
-
-## 🔧 Version
-
-### v0.2.0
-
-Amy v0.2.0 introduces:
-
-* Windows GUI
-* Adjustable WPM
-* Human-like timing variation
-* Punctuation pauses
-* Clipboard typing
-* Pause / Resume
-* Stop controls
-* Global keyboard shortcuts
-
----
-
-## 🛣️ Future Plans
-
-Possible future improvements:
-
-* Better human-like typing patterns
-* Typing profiles
-* Custom typing behavior
-* Advanced timing models
-* Improved GUI
-* Configuration and settings support
-* Additional platform support
-
----
-
-## ⚠️ Disclaimer
-
-Amy is an experimental typing automation project created for learning, experimentation, and personal automation.
-
-Use Amy responsibly and only where you are permitted to use typing automation.
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
-See the `LICENSE` file for more information.
-
----
-
-## 👨‍💻 Project
-
-**Amy — Human-Like AI Typing Agent**
-
-**Version:** v0.2.0
-**Platform:** Windows
+GitHub:
+https://github.com/Rubesh1420/Amy
